@@ -4,6 +4,7 @@ use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\HttpFoundation\Request;
 
+
 // Register global error and exception handlers
 ErrorHandler::register();
 ExceptionHandler::register();
@@ -48,5 +49,6 @@ $app['dao.user'] = function ($app) {
 $app['dao.comment'] = function ($app) {
     $commentDAO = new MicroCMS\DAO\CommentDAO($app['db']);
     $commentDAO->setArticleDAO($app['dao.article']);
+    $commentDAO->setUserDAO($app['dao.user']);
     return $commentDAO;
 };
