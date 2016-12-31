@@ -1,15 +1,16 @@
 <?php
 
-namespace MicroCMS\Tests;
+namespace MicroCMS\Test;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
 use Silex\WebTestCase;
 
-Class AppTest extends WebTestCase {
+class AppTest extends WebTestCase
+{
 
     /**
-     * Basic, application-wide functionnal test inspired by Symfony best practices.
+     * Basic, application-wide functional test inspired by Symfony best practices.
      * Simply checks that all application URLs load successfully.
      * During test execution, this method is called for each URL returned by the provideUrls method.
      *
@@ -19,7 +20,6 @@ Class AppTest extends WebTestCase {
     {
         $client = $this->createClient();
         $client->request('GET', $url);
-
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
 
@@ -29,24 +29,21 @@ Class AppTest extends WebTestCase {
     public function createApplication()
     {
         $app = new \Silex\Application();
-
         require __DIR__.'/../../app/config/dev.php';
         require __DIR__.'/../../app/app.php';
         require __DIR__.'/../../app/routes.php';
 
-        // Generate raww exceptions instead of HTML pages if erros occur
+        // Generate raw exceptions instead of HTML pages if errors occur
         unset($app['exception_handler']);
         // Simulate sessions for testing
-        $app['session_test'] = true;
-        // Enable anonymouis acces to admin zone
+        $app['session.test'] = true;
+        // Enable anonymous access to admin zone
         $app['security.access_rules'] = array();
-
         return $app;
     }
 
-
     /**
-     * Provides all valid application URLs
+     * Provides all valid application URLs.
      *
      * @return array The list of all valid application URLs.
      */
@@ -62,7 +59,8 @@ Class AppTest extends WebTestCase {
             array('/admin/comment/1/edit'),
             array('/admin/user/add'),
             array('/admin/user/1/edit'),
-            );
+            array('/api/articles'),
+            array('/api/article/1'),
+        );
     }
-
 }
