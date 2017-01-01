@@ -20,6 +20,7 @@ class AppTest extends WebTestCase
     {
         $client = $this->createClient();
         $client->request('GET', $url);
+
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
 
@@ -39,6 +40,7 @@ class AppTest extends WebTestCase
         $app['session.test'] = true;
         // Enable anonymous access to admin zone
         $app['security.access_rules'] = array();
+
         return $app;
     }
 
